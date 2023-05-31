@@ -22,7 +22,10 @@ import org.microg.gms.location.network.TAG
 class WifiScannerSource(private val context: Context, private val callback: WifiDetailsCallback) : WifiDetailsSource {
     override fun startScan(workSource: WorkSource?) {
         val scanner = context.getSystemService("wifiscanner") as WifiScanner
-        scanner.startScan(WifiScanner.ScanSettings(), object : WifiScanner.ScanListener {
+        val scanSettings = WifiScanner.ScanSettings().apply {
+            band = WifiScanner.WIFI_BAND_ALL
+        }
+        scanner.startScan(scanSettings, object : WifiScanner.ScanListener {
             override fun onSuccess() {
                 Log.d(TAG, "Not yet implemented: onSuccess")
             }
